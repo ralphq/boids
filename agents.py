@@ -1,11 +1,12 @@
 import math
 import random
 import utils
+import numpy as np
 
 class Agent:
-    def __init__(self, position, attitude, vertices):
+    def __init__(self, position, angle, vertices):
         self.position = position
-        self.attitude = attitude
+        self.attitude = angle
         self.vertices = vertices
 
 # Function to generate a random position on the screen
@@ -16,11 +17,11 @@ def rand_init(screen_width, screen_height):
     return x, y, angle
 
 def create_agents(num_agents, screen_width, screen_height):
-    agents = []
+    agent_array = np.empty((0,))
 
     for agent in range(0,num_agents):
         x, y, angle = rand_init(screen_width, screen_height)
         vertices = utils.draw_vertices([x, y], angle)
-        agents.append(Agent([x, y], angle, vertices))
+        agent_array = np.append(agent_array, Agent([x, y], angle, vertices))
     
-    return agents
+    return agent_array
