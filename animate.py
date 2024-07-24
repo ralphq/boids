@@ -19,12 +19,12 @@ def animate(agents, WIDTH, HEIGHT):
     # Initialize agent-specific states
     for agent in agents:
         agent.current_angle = random.uniform(0, 2 * math.pi)
-        agent.target_angle = agent.current_angle
+        agent.target_vec = agent.vec
         agent.direction_change_time = 0
-        agent.direction_change_interval = random.randint(10, 30)
+        agent.direction_change_interval = random.randint(20, 50)
 
     speed = 5  # Adjust speed as needed
-    rotation_speed = 0.05  # Adjust rotation speed for smooth turning
+    rotation_speed = 0.1  # Adjust rotation speed for smooth turning
 
     while running:
         for event in pygame.event.get():
@@ -37,7 +37,7 @@ def animate(agents, WIDTH, HEIGHT):
         for agent in agents:
             transition.step(agent, speed, rotation_speed, WIDTH, HEIGHT)
 
-            vertices = utils.draw_vertices(agent.position, agent.angle)
+            vertices = utils.draw_vertices(agent.position, utils.unitvec_to_rad(agent.vec))
             pygame.draw.polygon(screen, RED, vertices)
 
         pygame.display.flip()
