@@ -7,7 +7,6 @@ import utils
 import argparse
 
 def main():
-
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--num_agents',
@@ -20,8 +19,8 @@ def main():
     WIDTH, HEIGHT = 1000, 750
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-    num_agents = 10
-    agent_array = agents.create_agents(args.num_agents, WIDTH, HEIGHT)
+    size = 5
+    agent_array = agents.create_agents(args.num_agents, WIDTH, HEIGHT,size)
 
     pygame.init()
     animate.animate(agent_array, WIDTH, HEIGHT)

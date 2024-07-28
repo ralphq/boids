@@ -5,10 +5,8 @@ import random
 import agents
 import utils
 import transition
-
-# Colors
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
+import boids
+import numpy as np
 
 def animate(agents, WIDTH, HEIGHT):
     pygame.display.set_caption("Triangle Random Path")
@@ -23,8 +21,10 @@ def animate(agents, WIDTH, HEIGHT):
         agent.direction_change_time = 0
         agent.direction_change_interval = random.randint(20, 50)
 
-    speed = 5  # Adjust speed as needed
-    rotation_speed = 0.1  # Adjust rotation speed for smooth turning
+    speed = 0.05  # Adjust speed as needed
+    rotation_speed = 0.5  # Adjust rotation speed for smooth turning
+    size = 5
+    threshold = (HEIGHT+WIDTH)/2 * 0.5
 
     while running:
         for event in pygame.event.get():
@@ -32,13 +32,20 @@ def animate(agents, WIDTH, HEIGHT):
                 running = False
 
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        screen.fill(BLACK)
+        screen.fill("BLACK")
+
+        avg_pos = boids.cohesion(agents)
+        boids.separation(agents, threshold)
+        avg_heading = boids.alignment(agents)
+
+        #avg_pos = [WIDTH/2, HEIGHT/2]
 
         for agent in agents:
             transition.step(agent, speed, rotation_speed, WIDTH, HEIGHT)
-
-            vertices = utils.draw_vertices(agent.position, utils.unitvec_to_rad(agent.vec))
-            pygame.draw.polygon(screen, RED, vertices)
+            vertices = utils.draw_vertices(agent.position, utils.unitvec_to_rad(agent.vec), size)
+            pygame.draw.polygon(screen, "WHITE", vertices)
+            pygame.draw.circle(screen, "GREEN", avg_pos, size/2)
+            pygame.draw.line(screen, "RED", avg_pos, avg_pos+np.array((avg_heading))*(size/2), 5)
 
         pygame.display.flip()
         clock.tick(60)

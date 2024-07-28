@@ -1,9 +1,8 @@
 import math
 import numpy as np
 
-def draw_vertices(position, angle):
+def draw_vertices(position, angle, size):
     x, y = position
-    size = 20
 
     # Define the vertices of the triangle
     front_vertex = (x + size * math.cos(angle), y + size * math.sin(angle))
@@ -22,3 +21,25 @@ def unitvec_to_rad(unitvec):
 
 def lerp(start, end, alpha):
     return start + alpha * (end - start)
+
+def unit_vector(vector):
+    norm = np.linalg.norm(vector)
+    if norm == 0: 
+        return 0
+    return vector / norm
+
+def unit_vector2(vector, norm):
+    if norm == 0: 
+        return 0
+    return vector / norm
+
+def avg(x):
+    avg = [0,0]
+    for i in range(0, len(x)):
+        avg[0]+= x[i][0]
+        avg[1]+= x[i][1]
+
+    avg[0] = avg[0]/len(x)
+    avg[1] = avg[1]/len(x)
+
+    return avg

@@ -16,12 +16,12 @@ def rand_init(screen_width, screen_height):
     vec = utils.rad_to_unitvec(random.uniform(0, 2 * math.pi))
     return x, y, vec
 
-def create_agents(num_agents, screen_width, screen_height):
+def create_agents(num_agents, screen_width, screen_height, size):
     agent_array = np.empty((0,))
 
     for agent in range(0,num_agents):
         x, y, vec = rand_init(screen_width, screen_height)
-        vertices = utils.draw_vertices([x, y], math.atan2(y,x))
-        agent_array = np.append(agent_array, Agent([x, y], vec, vertices))
-    
+        vertices = utils.draw_vertices(np.array([x, y]), math.atan2(y,x), size)
+        agent_array = np.append(agent_array, Agent(np.array([x, y]), vec, vertices))
+
     return agent_array
