@@ -16,14 +16,14 @@ def main():
     args = parser.parse_args()
 
     # Screen dimensions
-    WIDTH, HEIGHT = 1000, 750
+    WIDTH, HEIGHT = 1250, 750
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
     size = 5
-    agent_array = agents.create_agents(args.num_agents, WIDTH, HEIGHT,size)
+    agent_array = agents.create_agents(args.num_agents, WIDTH, HEIGHT, size)
 
     pygame.init()
-    animate.animate(agent_array, WIDTH, HEIGHT)
+    animate.animate(agent_array, WIDTH, HEIGHT, size)
     pygame.quit()
     sys.exit()
 

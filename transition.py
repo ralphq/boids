@@ -5,15 +5,10 @@ import utils
 import boids
 
 def step(agent, speed, rotation_speed, WIDTH, HEIGHT):
-        agent.direction_change_time += 1
-        if agent.direction_change_time >= agent.direction_change_interval:
-            agent.direction_change_interval = random.randint(10, 30)
-            #agent.target_vec += utils.rad_to_unitvec(random.uniform(0, 2 * math.pi))
 
         #print(agent.target_vec)
-        agent.vec = utils.lerp(agent.vec, agent.target_vec, 0.3)
-        #agent.vec = agent.target_vec
-
+        #agent.vec = utils.lerp(agent.vec, agent.target_vec, 0.3)
+        agent.vec = utils.unit_vector(agent.target_vec)
         # Update position
         agent.position = agent.position + speed * agent.vec
         #Ensure the triangle stays within the screen bounds
