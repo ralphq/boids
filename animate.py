@@ -33,15 +33,14 @@ def animate(agents, WIDTH, HEIGHT,size):
 
         avg_pos = boids.cohesion(agents)
         boids.separation(agents, threshold)
-        avg_heading = boids.alignment(agents)
+        boids.alignment(agents)
         boids.edge_avoidance(agents, WIDTH, HEIGHT, 250, 0.5)
 
-        for agent in agents:
+        for agent in agents:            
             transition.step(agent, speed, rotation_speed, WIDTH, HEIGHT)
             vertices = utils.draw_vertices(agent.position, utils.unitvec_to_rad(agent.vec), size)
             pygame.draw.polygon(screen, "WHITE", vertices)
-            pygame.draw.circle(screen, "GREEN", avg_pos, size/2)
-            #pygame.draw.line(screen, "RED", avg_pos, avg_pos+np.array((avg_heading))*(size/2), 5)
+            #pygame.draw.circle(screen, "GREEN", avg_pos, size/2)
 
         pygame.display.flip()
         clock.tick(60)

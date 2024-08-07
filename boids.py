@@ -15,32 +15,33 @@ def separation(agent_array, THRESHOLD):
                 agent.target_vec += -1*0.2*utils.unit_vector2(diff, dist)
             
 def alignment(agent_array):
-    headings = np.empty(len(agent_array), dtype=object)
-    for i in range(0, len(agent_array)):
-        headings[i] = agent_array[i].vec
-    
-    avg_heading = utils.avg(headings)
-
     for agent in agent_array:
-        agent.target_vec += 0.025*utils.unit_vector(avg_heading)
+        headings = np.empty(len(agent_array), dtype=object)
+        for i in range(0, len(agent_array)):
+            headings[i] = agent_array[i].vec
+        
+        avg_heading = utils.avg(headings)
+
+        for agent in agent_array:
+            agent.target_vec += 0.025*utils.unit_vector(avg_heading)
 
     return avg_heading
 
 def cohesion(agent_array):
-    positions = np.empty(len(agent_array), dtype=object)
-    for i in range(0, len(agent_array)):
-        positions[i] = agent_array[i].position
-
-    avg_pos = utils.avg(positions)
-
     for agent in agent_array:
-        dist_from_avg = avg_pos - np.array(agent.position)
-        agent.target_vec += 5*utils.unit_vector(dist_from_avg)
+        positions = np.empty(len(agent_array), dtype=object)
+        for i in range(0, len(agent_array)):
+            positions[i] = agent_array[i].position
 
-    return avg_pos
+        avg_pos = utils.avg(positions)
 
-def edge_avoidance(agent, WIDTH, HEIGHT, margin, force):
-    for agent in agent:
+        for agent in agent_array:
+            dist_from_avg = avg_pos - np.array(agent.position)
+            agent.target_vec += 5*utils.unit_vector(dist_from_avg)
+
+
+def edge_avoidance(agents, WIDTH, HEIGHT, margin, force):
+    for agent in agents:
         if agent.position[0] < margin:
             agent.target_vec += np.array([force, 0])
         elif agent.position[0] > WIDTH - margin:
@@ -50,3 +51,13 @@ def edge_avoidance(agent, WIDTH, HEIGHT, margin, force):
             agent.target_vec += np.array([0, force])
         elif agent.position[1] > HEIGHT - margin:
             agent.target_vec += np.array([0, -force])
+
+def get_neighbors(agent, agent_array, radius):
+    neighbors = []
+    for agent_candidate in agent_array:
+        diff = np.array(agent_candidate.position) - np.array(agent.position)
+        dist = np.linalg.norm(diff)
+        if dist < radius:
+            neighbors.append(agent_candidate)
+    
+    return np.array(neighbors)

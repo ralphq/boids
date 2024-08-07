@@ -34,6 +34,9 @@ def unit_vector2(vector, norm):
     return vector / norm
 
 def avg(x):
+    if len(x) == 0:
+        return 0
+    
     avg = [0,0]
     for i in range(0, len(x)):
         avg[0]+= x[i][0]

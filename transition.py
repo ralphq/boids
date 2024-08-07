@@ -5,7 +5,6 @@ import utils
 import boids
 
 def step(agent, speed, rotation_speed, WIDTH, HEIGHT):
-
         #print(agent.target_vec)
         #agent.vec = utils.lerp(agent.vec, agent.target_vec, 0.3)
         agent.vec = utils.unit_vector(agent.target_vec)
