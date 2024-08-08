@@ -20,7 +20,7 @@ def animate(agents, WIDTH, HEIGHT,size):
         agent.target_vec = agent.vec
 
     speed = 5  # Adjust speed as needed
-    rotation_speed = 125  # Adjust rotation speed for smooth turning
+    rotation_speed = 250  # Adjust rotation speed for smooth turning
     threshold = (HEIGHT+WIDTH)/2 * 0.05
 
     while running:
@@ -31,16 +31,17 @@ def animate(agents, WIDTH, HEIGHT,size):
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
         screen.fill("BLACK")
 
-        avg_pos = boids.cohesion(agents)
-        boids.separation(agents, threshold)
-        boids.alignment(agents)
-        boids.edge_avoidance(agents, WIDTH, HEIGHT, 250, 0.5)
+        for agent in agents:
+            local_agents = boids.get_neighbors(agent, agents, 100)
+            
+            boids.separation(agent, local_agents, threshold)
+            boids.alignment_and_cohesion(agent, local_agents)
+                
+            boids.edge_avoidance(agent, WIDTH, HEIGHT, 250, 2) # no loop
 
-        for agent in agents:            
             transition.step(agent, speed, rotation_speed, WIDTH, HEIGHT)
             vertices = utils.draw_vertices(agent.position, utils.unitvec_to_rad(agent.vec), size)
             pygame.draw.polygon(screen, "WHITE", vertices)
-            #pygame.draw.circle(screen, "GREEN", avg_pos, size/2)
-
+            
         pygame.display.flip()
         clock.tick(60)

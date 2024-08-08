@@ -10,7 +10,13 @@ def step(agent, speed, rotation_speed, WIDTH, HEIGHT):
         agent.vec = utils.unit_vector(agent.target_vec)
         # Update position
         agent.position = agent.position + speed * agent.vec
-        #Ensure the triangle stays within the screen bounds
-        if agent.position[0] < 0 or agent.position[0] > WIDTH or agent.position[1] < 0 or agent.position[1] > HEIGHT:
-            agent.target_vec*= -1  # Reverse direction if out of bounds
-            agent.position = (max(0, min(WIDTH, agent.position[0])), max(0, min(HEIGHT, agent.position[1])))
+
+        if agent.position[0] < 0:
+            agent.position[0] += WIDTH
+        elif agent.position[0] >= WIDTH:
+            agent.position[0] -= WIDTH
+
+        if agent.position[1] < 0:
+            agent.position[1] += HEIGHT
+        elif agent.position[1] >= HEIGHT:
+            agent.position[1] -= HEIGHT
