@@ -18,7 +18,7 @@ def alignment_and_cohesion(agent, agent_array):
         positions[i] = agent_array[i].position
     
     avg_heading = utils.avg(headings)
-    agent.target_vec += 0.5*utils.unit_vector(avg_heading)
+    agent.target_vec += 0.66*utils.unit_vector(avg_heading)
     
     avg_pos = utils.avg(positions)
     dist_from_avg = avg_pos - np.array(agent.position)

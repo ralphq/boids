@@ -9,6 +9,7 @@ class Agent:
         self.vec = vec
         self.vertices = vertices
 
+
 # Function to generate a random position on the screen
 def rand_init(screen_width, screen_height):
     x = random.randint(0, screen_width)

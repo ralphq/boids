@@ -9,7 +9,7 @@ import boids
 import numpy as np
 
 def animate(agents, WIDTH, HEIGHT,size):
-    pygame.display.set_caption("Triangle Random Path")
+    pygame.display.set_caption("Boids Algorithm Simulation")
 
     clock = pygame.time.Clock()
     running = True
@@ -32,7 +32,7 @@ def animate(agents, WIDTH, HEIGHT,size):
         screen.fill("BLACK")
 
         for agent in agents:
-            local_agents = boids.get_neighbors(agent, agents, 100)
+            local_agents = boids.get_neighbors(agent, agents, 125)
             
             boids.separation(agent, local_agents, threshold)
             boids.alignment_and_cohesion(agent, local_agents)
