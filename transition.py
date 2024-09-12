@@ -5,12 +5,13 @@ import utils
 import boids
 
 def step(agent, speed, rotation_speed, WIDTH, HEIGHT):
-        #print(agent.target_vec)
-        #agent.vec = utils.lerp(agent.vec, agent.target_vec, 0.3)
+
+        # normalize at each step to prevent acceleration
         agent.vec = utils.unit_vector(agent.target_vec)
-        # Update position
+        # update position
         agent.position = agent.position + speed * agent.vec
 
+        # screenwrapping
         if agent.position[0] < 0:
             agent.position[0] += WIDTH
         elif agent.position[0] >= WIDTH:
