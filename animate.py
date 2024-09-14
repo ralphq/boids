@@ -8,13 +8,15 @@ import transition
 import boids
 import numpy as np
 
-def animate(agents, WIDTH, HEIGHT,size):
+
+def animate(agents, WIDTH, HEIGHT, size, save_frames, sim_length):
 
     # initialize pygame window
     pygame.display.set_caption("Boids Algorithm Simulation")
     clock = pygame.time.Clock()
     running = True
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    frame_count = 0
 
     speed = 5  # adjust speed as needed
     rotation_speed = 250  # adjust rotation speed for smooth turning
@@ -49,6 +51,18 @@ def animate(agents, WIDTH, HEIGHT,size):
             vertices = draw_vertices(agent.position, utils.unitvec_to_rad(agent.vec), size)
             pygame.draw.polygon(screen, "WHITE", vertices)
             
+
+        # save each frame as an image
+        if save_frames:
+            pygame.image.save(screen, f"frames/frame_{frame_count:03d}.png")
+        
+        frame_count += 1
+        clock.tick(30)
+
+        # limits simulation length to 10s
+        if frame_count >= sim_length:
+            break
+
         pygame.display.flip()
 
 def draw_vertices(position, angle, size):
@@ -60,3 +74,4 @@ def draw_vertices(position, angle, size):
     base_right = (x + size * math.cos(angle - 2 * math.pi / 3), y + size * math.sin(angle - 2 * math.pi / 3))
     
     return [front_vertex, base_left, base_right]
+
