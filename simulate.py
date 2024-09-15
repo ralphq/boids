@@ -1,15 +1,9 @@
 import pygame
-import sys
 import math
-import random
-import agents
 import utils
-import transition
 import boids
-import numpy as np
 
-
-def animate(agents, WIDTH, HEIGHT, size, save_frames, sim_length):
+def simulate(agents, WIDTH, HEIGHT, size, save_frames, sim_length):
 
     # initialize pygame window
     pygame.display.set_caption("Boids Algorithm Simulation")
@@ -45,7 +39,7 @@ def animate(agents, WIDTH, HEIGHT, size, save_frames, sim_length):
             boids.edge_avoidance(agent, WIDTH, HEIGHT, 250, 2) # no loop
 
             # move agents towards target vector defined by boids. see transition.py
-            transition.step(agent, speed, rotation_speed, WIDTH, HEIGHT)
+            time_step(agent, speed, rotation_speed, WIDTH, HEIGHT)
 
             # draw agents
             vertices = draw_vertices(agent.position, utils.unitvec_to_rad(agent.vec), size)
@@ -65,6 +59,25 @@ def animate(agents, WIDTH, HEIGHT, size, save_frames, sim_length):
 
         pygame.display.flip()
 
+# moves agents one time_step's distance and handles screenwrapping
+def time_step(agent, speed, rotation_speed, WIDTH, HEIGHT):
+        # normalize at each step to prevent acceleration
+        agent.vec = utils.unit_vector(agent.target_vec)
+        # update position
+        agent.position = agent.position + speed * agent.vec
+
+        # screenwrapping
+        if agent.position[0] < 0:
+            agent.position[0] += WIDTH
+        elif agent.position[0] >= WIDTH:
+            agent.position[0] -= WIDTH
+
+        if agent.position[1] < 0:
+            agent.position[1] += HEIGHT
+        elif agent.position[1] >= HEIGHT:
+            agent.position[1] -= HEIGHT
+
+# draws agent triangles in pygame window based on heading and position
 def draw_vertices(position, angle, size):
     x, y = position
 

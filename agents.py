@@ -1,6 +1,6 @@
 import math
 import random
-import animate
+import simulate
 import utils
 import numpy as np
 
@@ -21,10 +21,9 @@ def rand_init(screen_width, screen_height):
 # creates agents. called once at beginning of sim
 def create_agents(num_agents, screen_width, screen_height, size):
     agent_array = np.empty((0,))
-
     for agent in range(0,num_agents):
         x, y, vec = rand_init(screen_width, screen_height)
-        vertices = animate.draw_vertices(np.array([x, y]), math.atan2(y,x), size)
+        vertices = simulate.draw_vertices(np.array([x, y]), math.atan2(y,x), size)
         agent_array = np.append(agent_array, Agent(np.array([x, y]), vec, vertices))
 
     return agent_array

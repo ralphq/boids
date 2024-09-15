@@ -1,7 +1,7 @@
 import math
 import os
 import pygame
-import animate
+import simulate
 import agents
 import sys
 import utils
@@ -46,7 +46,7 @@ def main():
     agent_array = agents.create_agents(args.num_agents, WIDTH, HEIGHT, size)
 
     pygame.init()
-    animate.animate(agent_array, WIDTH, HEIGHT, size, args.save_frames, args.sim_length)
+    simulate.simulate(agent_array, WIDTH, HEIGHT, size, args.save_frames, args.sim_length)
 
     sys.exit()
 
