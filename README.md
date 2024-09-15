@@ -2,7 +2,9 @@
 
 An implementation and simulation of Boids Algorithm (a.k.a Reynolds Flocking) in Python.
 
-![](boids.mp4)
+<video src="./boids.mp4">
+Your browser does not support the video tag.
+</video>
 
 ### Installing Dependencies
 
