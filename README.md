@@ -1,12 +1,8 @@
 # Boids Algorithm
 
-An implementation and simulation of Boids Algorithm (a.k.a Reynolds Flocking) in Python.
-
-<video src="./boids.mp4">
-Your browser does not support the video tag.
-</video>
-
-![](boids.mp4)
+An implementation and simulation of Boids Algorithm (a.k.a Reynolds Flocking) in Python. This README
+describes how to run the simulation and save recordings. For more info on background and implementation,
+check out my [website](https://ralphq.github.io/boids.html)!
 
 ### Installing Dependencies
 
