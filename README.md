@@ -6,6 +6,8 @@ An implementation and simulation of Boids Algorithm (a.k.a Reynolds Flocking) in
 Your browser does not support the video tag.
 </video>
 
+![](boids.mp4)
+
 ### Installing Dependencies
 
 * pip install numpy pygame
