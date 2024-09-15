@@ -27,7 +27,7 @@ bash convert_frames.sh
 ## Notes
 * On my M2 Macbook Air >~150 agents makes the pygame window choppy. However, with greater numbers of agents you can save the frames and convert to a smooth .mp4/.gif file afterwards
 * ```convert_frames.sh``` deletes individual frames after creating a video, and will overwrite existing boids.mp4/.gif files. I did this since the simulations are very random, however if an individual run has
-sentimental value treat it with care.
+sentimental value treat it with care
 
 ## Authors
 Ralph Quartiano (https://ralphq.github.io/)
